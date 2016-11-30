@@ -19,10 +19,14 @@ def main():
     plt.plot(x_array, y_contaminated_array, '.', label='measurement')
     plt.plot(x_array, y_array, label='ground truth')
 
+    axis_grid_legend()
+    plt.show()
+
+
+def axis_grid_legend():
     plt.axis('equal')
     plt.grid(True)
     plt.legend(loc=0)
-    plt.show()
 
 
 def least_square_left_inverse(x_array, y_contaminated_array):
