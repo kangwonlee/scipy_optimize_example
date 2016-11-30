@@ -5,12 +5,12 @@ import numpy.random as nr
 
 def main():
     # original parameters
-    a = 0.5
-    b = 1.0
+    a, b = 0.5, 1.0
 
     x_array, y_array, y_contaminated_array = prepare_data_points(a=a, b=b)
 
     estimation, y_reconstructed = least_square_left_inverse(x_array, y_contaminated_array)
+
     print('estimation of a = %g' % estimation[0, 0])
     print('estimation of b = %g' % estimation[1, 0])
 

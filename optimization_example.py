@@ -5,7 +5,8 @@ import least_square_left_inverse as li
 
 
 def cost_function(w, array_y_measurement, mat_x):
-    a_hat, b_hat = w
+    a_hat = w[0]
+    b_hat = w[1]
 
     mat_w = np.matrix([[a_hat],
                        [b_hat]])
