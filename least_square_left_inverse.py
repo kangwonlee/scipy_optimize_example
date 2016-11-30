@@ -8,14 +8,7 @@ def main():
     a = 0.5
     b = 1.0
 
-    # independent varialbe
-    x_array = np.linspace(-8, 8, 101)
-
-    # true signal (assumption)
-    y_array = a * x_array + b
-
-    # measured signal. contaminated with Gaussian noise
-    y_contaminated_array = y_array + nr.normal(size=np.shape(y_array))
+    x_array, y_array, y_contaminated_array = prepare_data_points(a=a, b=b)
 
     '''prepare left inverse'''
     mat_x = np.matrix([x_array,
@@ -45,6 +38,17 @@ def main():
     plt.grid(True)
     plt.legend(loc=0)
     plt.show()
+
+
+def prepare_data_points(n_interval=100, a=0.5, b=1.0):
+    n_points = n_interval + 1
+    # independent varialbe
+    x_array = np.linspace(-8, 8, n_points)
+    # true signal (assumption)
+    y_array = a * x_array + b
+    # measured signal. contaminated with Gaussian noise
+    y_contaminated_array = y_array + nr.normal(size=np.shape(y_array))
+    return x_array, y_array, y_contaminated_array
 
 
 if __name__ == '__main__':
