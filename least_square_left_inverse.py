@@ -17,12 +17,27 @@ def main():
     # measured signal. contaminated with Gaussian noise
     y_contaminated_array = y_array + nr.normal(size=np.shape(y_array))
 
-    '''apply left inverse'''
+    '''prepare left inverse'''
     mat_x = np.matrix([x_array,
                        np.ones_like(x_array)]).T
+    mat_xt = mat_x.T
 
-    plt.plot(x_array, y_array, label='ground truth')
+    mat_xt_x = mat_xt * mat_x
+
+    mat_left_inv = mat_xt_x.I * mat_xt
+
+    '''multiply left inverse with the measurement'''
+    y_contaminated_matrix = np.matrix([y_contaminated_array]).T
+
+    estimation = mat_left_inv * y_contaminated_matrix
+
+    '''reconstruct the signal'''
+    y_reconstructed = mat_x * estimation
+
+    '''visualize'''
+    plt.plot(x_array, y_reconstructed, label='reconstructed')
     plt.plot(x_array, y_contaminated_array, '.', label='measurement')
+    plt.plot(x_array, y_array, label='ground truth')
 
     plt.axis('equal')
     plt.grid(True)
