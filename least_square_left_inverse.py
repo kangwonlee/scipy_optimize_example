@@ -10,24 +10,9 @@ def main():
 
     x_array, y_array, y_contaminated_array = prepare_data_points(a=a, b=b)
 
-    '''prepare left inverse'''
-    mat_x = np.matrix([x_array,
-                       np.ones_like(x_array)]).T
-    mat_xt = mat_x.T
-
-    mat_xt_x = mat_xt * mat_x
-
-    mat_left_inv = mat_xt_x.I * mat_xt
-
-    '''multiply left inverse with the measurement'''
-    y_contaminated_matrix = np.matrix([y_contaminated_array]).T
-
-    estimation = mat_left_inv * y_contaminated_matrix
+    estimation, y_reconstructed = least_square_left_inverse(x_array, y_contaminated_array)
     print('estimation of a = %g' % estimation[0, 0])
     print('estimation of b = %g' % estimation[1, 0])
-
-    '''reconstruct the signal'''
-    y_reconstructed = mat_x * estimation
 
     '''visualize'''
     plt.plot(x_array, y_reconstructed, label='reconstructed')
@@ -38,6 +23,21 @@ def main():
     plt.grid(True)
     plt.legend(loc=0)
     plt.show()
+
+
+def least_square_left_inverse(x_array, y_contaminated_array):
+    '''prepare left inverse'''
+    mat_x = np.matrix([x_array,
+                       np.ones_like(x_array)]).T
+    mat_xt = mat_x.T
+    mat_xt_x = mat_xt * mat_x
+    mat_left_inv = mat_xt_x.I * mat_xt
+    '''multiply left inverse with the measurement'''
+    y_contaminated_matrix = np.matrix([y_contaminated_array]).T
+    '''reconstruct the signal'''
+    estimation = mat_left_inv * y_contaminated_matrix
+    y_reconstructed = mat_x * estimation
+    return estimation, y_reconstructed
 
 
 def prepare_data_points(n_interval=100, a=0.5, b=1.0):
