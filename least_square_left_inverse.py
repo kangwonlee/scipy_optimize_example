@@ -30,6 +30,8 @@ def main():
     y_contaminated_matrix = np.matrix([y_contaminated_array]).T
 
     estimation = mat_left_inv * y_contaminated_matrix
+    print('estimation of a = %g' % estimation[0, 0])
+    print('estimation of b = %g' % estimation[1, 0])
 
     '''reconstruct the signal'''
     y_reconstructed = mat_x * estimation
