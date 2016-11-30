@@ -31,8 +31,7 @@ def axis_grid_legend():
 
 def least_square_left_inverse(x_array, y_contaminated_array):
     '''prepare left inverse'''
-    mat_x = np.matrix([x_array,
-                       np.ones_like(x_array)]).T
+    mat_x = x_array_to_mat(x_array)
     mat_xt = mat_x.T
     mat_xt_x = mat_xt * mat_x
     mat_left_inv = mat_xt_x.I * mat_xt
@@ -42,6 +41,12 @@ def least_square_left_inverse(x_array, y_contaminated_array):
     estimation = mat_left_inv * y_contaminated_matrix
     y_reconstructed = mat_x * estimation
     return estimation, y_reconstructed
+
+
+def x_array_to_mat(x_array):
+    mat_x = np.matrix([x_array,
+                       np.ones_like(x_array)]).T
+    return mat_x
 
 
 def prepare_data_points(n_interval=100, a=0.5, b=1.0):
