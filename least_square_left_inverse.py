@@ -14,13 +14,17 @@ def main():
     print('estimation of a = %g' % estimation[0, 0])
     print('estimation of b = %g' % estimation[1, 0])
 
-    '''visualize'''
-    plt.plot(x_array, y_reconstructed, label='reconstructed')
-    plt.plot(x_array, y_contaminated_array, '.', label='measurement')
-    plt.plot(x_array, y_array, label='ground truth')
-
-    axis_grid_legend()
+    snapshot(x_array, y_array, y_contaminated_array, y_reconstructed)
     plt.show()
+
+
+def snapshot(array_x, array_y_signal, array_y_contaminated, array_y_reconstructed):
+    '''visualize'''
+    plt.clf()
+    plt.plot(array_x, array_y_reconstructed, label='reconstructed')
+    plt.plot(array_x, array_y_contaminated, '.', label='measurement')
+    plt.plot(array_x, array_y_signal, label='ground truth')
+    axis_grid_legend()
 
 
 def axis_grid_legend():
