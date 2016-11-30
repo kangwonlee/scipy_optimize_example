@@ -22,11 +22,15 @@ def cost_function(w, array_y_measurement, mat_x):
 def main():
     x_array, y_array, y_contaminated_array = li.prepare_data_points()
 
-    mat_x = li.x_array_to_mat(x_array)
+    result = optimization_example(x_array, y_contaminated_array)
+    print('result:\n%s' % result)
 
+
+def optimization_example(x_array, y_contaminated_array):
+    mat_x = li.x_array_to_mat(x_array)
     initial_guess = np.array((0, 0))
     result = so.minimize(cost_function, initial_guess, args=(y_contaminated_array, mat_x))
-    print('result:\n%s' % result)
+    return result
 
 
 if __name__ == '__main__':
